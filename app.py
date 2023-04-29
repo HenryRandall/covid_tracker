@@ -1,15 +1,8 @@
 # import necessary libraries
-import os
 from flask import (
     Flask,
-    render_template,
-    jsonify,
-    request,
-    redirect)
+    render_template)
 import pandas as pd
-import json
-import csv
-import numpy as np
 import key
 API_KEY = key.API_KEY
 #################################################
