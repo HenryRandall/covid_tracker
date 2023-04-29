@@ -1,0 +1,75 @@
+/* remove default margin and padding from body */
+body {
+    padding: 0;
+    margin: 0;
+}
+
+#map {
+    width: 100%;
+    height: 400px;
+    position: absolute;
+    margin:0;
+    padding:0; 
+    border: 1px solid black;
+    border-radius: 8px;
+}
+
+.leaflet-container h1 {
+    font-weight: bold;
+    color:(--secondary);
+    font-size: 14px;
+  }
+
+  h6 {
+    display:inline;
+}
+
+.row-with-wide-cards .card {
+    width:100%;
+  }
+
+.blackonwhite{
+    color:#000000;
+    display:inline-block;
+    padding:0px;
+}
+
+.whiteonblack{
+    color:#FFFFFF;
+    display:inline-block;
+    padding:0px;
+}
+
+a:hover{
+    color:#007bff
+}
+
+.row-with-wide-cards .card {
+    box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+    transition: 0.3s;
+}
+
+.row-with-wide-cards .card:hover {
+    box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
+}
+
+
+
+.aboutus {
+    padding: 0px 5%;
+}
+.aboutus .card {
+    width:90%;
+    margin: 0 auto;
+    float: none;
+    margin-bottom: 10px;
+    box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+    transition: 0.3s;
+}
+.aboutus .card:hover {
+    box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
+}
+
+.aboutus .container {
+    padding: 10px 16px;
+}

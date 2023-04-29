@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Methodology</title>
+  <link rel="icon" href="\static\images\favicon.ico">
+  
+  <!-- d3 JavaScript -->
+  <script src="https://d3js.org/d3.v5.min.js"></script>
+
+  <!-- Our CSS -->
+  <link rel="stylesheet" type="text/css" href="\static\style\lux.min.css">
+  <link rel="stylesheet" type="text/css" href="\static\style\style.css">
+
+  <link rel="shortcut icon" href="#" />
+</head>
+
+<body>
+  <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+    <a class="navbar-brand" href="/">Home</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarColor01" aria-controls="navbarColor01" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarColor01">
+      <ul class="navbar-nav mr-auto">
+        <li class="nav-item">
+          <a class="nav-link" href="/plots">Plots</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/methodology">Methodology</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/aboutus">About Us</a>
+        </li>
+      </ul>
+    </div>
+  </nav>
+  <div class="container">
+    <br></br>
+    <h1 align="center">TRACKING COVID-19 ACROSS THE US</h1>
+    <br></br>
+    <div class="row row-with-wide-cards">
+      <div class="col-md-6 d-flex align-items-stretch">
+        <div class="card border-secondary mb-3">
+          <div class="card-header">Definitions and Explanations</div>
+          <div class="card-body">
+            <h4 class="card-title", id='state_name'></h4>
+              Total, Daily and 7 Day Average:
+                <ul>
+                  <li>The total cases and deaths are pulled directly from the John's Hopkin's github 
+                    repository.</li>
+                  <li>Daily cases are found by calculating the change in total cases from the previous 
+                    day. Daily cases and deaths are sometimes negative, this happens when the a state 
+                    or county changes the total cases or deaths after the original reporting.</li>
+                  <li><p>The 7 day average is calculated by taking the previous week from the current
+                    date and averaging the daily cases or deaths.</li>
+                </ul>
+              States and Counties:
+                <ul>
+                  <li>The Johns Hopkins Github repositiory give data for each county and for 
+                    "unassigned" and "out of state" within each state. The numbers we use for
+                    states are the summation of all three. However, the unassigned and out of state 
+                    cases do not appear in the county data.</li>
+                </ul>
+              Order Dates:
+                <ul>
+                  <li>The order dates are from FINRA. These dates are statewide "Shelter-in-Place" 
+                    or "Stay-at-Home" orders; however, certain counties might have had stricter 
+                    quarantine periods.</li>
+                </ul>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-6 d-flex align-items-stretch">
+        <div class="card text-white bg-primary mb-3">
+          <div class="card-header">Machine Learning Projections</div>
+          <div class="card-body">
+            <h4 class="card-title", id='state_name'></h4>
+            <ul>
+              <li>Cases Projections
+                <ul>
+                  <li>A TensorFlow nueral net was used with a ReLU activate. The variables used
+                    were Population Density, Black population share, Hispanic population share, 
+                    Median age, Current case total, 7 Day average case totals, and the 7 day 
+                    average of close proximity cases.
+                  </li>
+                  <li>All data is pulled from the Johns Hopkins Github Repository, 
+                    or the Python Census API using the 2019 census eastimates</li>
+                  <li>Close proximity cases are calculated by summing every county 
+                    within a 5 degree radius from the county in question. This is calculated using the 
+                    latitude and longitude for each county on the Johns Hopkins Github.</li>
+                </ul>
+              </li>
+              <li>Death Projections
+                <ul>                
+                  <li>A TensorFlow nueral net was used with a ReLU activate. The variables used
+                    were Population Density, Black population share, Hispanic population share, 
+                    Medain household income, Median age, Current case total, 7 Day average case totals,
+                    and the 7 day average of close proximity cases.
+                  </li>
+                  <li>All data is pulled from the Johns Hopkins Github Repository, 
+                    or the Python Census API using the 2019 census eastimates</li>
+                </ul>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="row row-with-wide-cards">
+      <div class="col-md-6 d-flex align-items-stretch">
+        <div class="card text-white bg-primary mb-3">
+          <div class="card-header">Libraries Used</div>
+          <div class="card-body">
+            <h4 class="card-title", id='state_name'></h4>
+            <ul>
+              <li><a class="nav-link whiteonblack" href="https://github.com/HenryRandall/Project-2" target="_blank">Our Github Repository</a></li>
+              <li> Python Libraries:
+                <ul>
+                  <li><a class="nav-link whiteonblack" href="https://flask.palletsprojects.com/en/1.1.x/" target="_blank">Flask</a></li>
+                  <li><a class="nav-link whiteonblack" href="https://docs.sqlalchemy.org/en/13/" target="_blank">SQLAlchemy</a></li>
+                  <li><a class="nav-link whiteonblack" href="https://pandas.pydata.org/" target="_blank">pandas</a></li>
+                  <li><a class="nav-link whiteonblack" href="https://www.crummy.com/software/BeautifulSoup/bs4/doc/" target="_blank">Beautiful Soup</a></li>
+                  <li><a class="nav-link whiteonblack" href="https://flask-caching.readthedocs.io/en/latest/" target="_blank">Flask-Caching</a></li>
+                  <li><a class="nav-link whiteonblack" href="https://keras.io/" target="_blank">Keras</a></li>
+                  <li><a class="nav-link whiteonblack" href="https://www.tensorflow.org/" target="_blank">TensorFlow</a></li>
+                </ul>
+              </li>
+              <li><a class="nav-link whiteonblack" href="https://bootswatch.com/" target="_blank">Bootswatch</a></li>
+              <li> Javascript Libraries:
+                <ul>
+                  <li><a class="nav-link whiteonblack" href="https://leafletjs.com/" target="_blank">Leaflet</a></li>
+                  <li><a class="nav-link whiteonblack" href="https://github.com/calvinmetcalf/leaflet-ajax" target="_blank">Leaflet Ajax</a></li>
+                  <li><a class="nav-link whiteonblack" href="https://d3js.org/" target="_blank">D3.js</a></li>
+                  <li><a class="nav-link whiteonblack" href="https://www.chartjs.org/" target="_blank">Chart.js</a></li>
+                </ul>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-6 d-flex align-items-stretch">
+        <div class="card border-secondary mb-3">
+          <div class="card-header">Data Sources</div>
+          <div class="card-body">
+            <h4 class="card-title", id='state_name'></h4>
+            <ul>
+              <li><a class="nav-link blackonwhite" href="https://github.com/datamade/census" target="_blank">US Census Bureau</a></li>
+              <br></br>
+              <li><a class="nav-link blackonwhite" href="https://github.com/CSSEGISandData/COVID-19" target="_blank">COVID-19 Data Repository at Johns Hopkins</a></li>
+              <br></br>
+              <li><a class="nav-link blackonwhite" href="https://www.finra.org/rules-guidance/key-topics/covid-19/shelter-in-place" target="_blank">Financial Industry Regulatory Authority</a></li>
+              <br></br>
+              <li><a class="nav-link blackonwhite" href="https://covidtracking.com/" target="_blank">The COVID Tracking Project</a></li>
+              <br></br>
+              <li><a class="nav-link blackonwhite" href="https://eric.clst.org/tech/usgeojson/" target="_blank">Eric Celeste GeoJSON data for the United States</a></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Popper.js, and jQuery for bootstrap-->
+  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script>
+</body>
+
+</html>

@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <!-- Setup and title page -->
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>COVID Data Tracker</title>
+  <link rel="icon" href="static\images\favicon.ico">
+  
+  <!-- Leaflet CSS -->
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.3.3/dist/leaflet.css" integrity="sha512-Rksm5RenBEKSKFjgI3a41vrjkw4EVPlJ3+OiI65vTjIdo9brlAacEuKOiQ5OFh7cOI1bkDwLqdLw3Zg0cRJAAQ==" crossorigin="" />
+
+  <!-- d3 JavaScript -->
+  <script src="https://d3js.org/d3.v5.min.js"></script>
+
+  <!-- Our CSS -->
+  <link rel="stylesheet" type="text/css" href="static\style\style.css">
+
+  <!-- Bootswatch CSS -->
+  <link rel="stylesheet" type="text/css" href="static\style\lux.min.css">
+
+  <link rel="shortcut icon" href="#" />
+</head>
+
+<body>
+  <!-- Nav Bar -->
+  <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+    <a class="navbar-brand" href="/">Home</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarColor01" aria-controls="navbarColor01" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarColor01">
+      <ul class="navbar-nav mr-auto">
+        <li class="nav-item">
+          <a class="nav-link" href="/plots">Plots</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/methodology">Methodology</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/aboutus">About Us</a>
+        </li>
+      </ul>
+    </div>
+  </nav>
+  <!-- Main page container -->
+  <div class="container">
+    <!-- Top row with title jumbotron -->
+    <div class="row">
+      <div class="col-md-12 jumbotron text-center">
+        <h1>COVID Data Tracker</h1>
+        <p>Use the interactive charts below to explore the dataset</p>
+        <h6>Data updated for covid-19 cases through: </h6><h6 id='last date'></h6>
+      </div>
+    </div>
+    <!-- Middle row with interactive elements and info dump -->
+    <div class="row">
+      <!-- USA data table -->
+      <div class="col-md-4">
+        <table class="table table-hover">
+          <tbody>
+            <tr>
+              <td>USA Total Cases</td>
+              <td id="usa_cases"></td>
+            </tr>
+            <tr>
+              <td>USA Total Deaths</td>
+              <td id="usa_deaths"></td>
+            </tr>
+            <tr>
+              <td>USA This Week's Cases</td>
+              <td id="usa_thisweek"></td>
+            </tr>
+            <tr>
+              <td>USA Last Week's Cases</td>
+              <td id="usa_lastweek"></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <!-- Updating State Data Table -->
+      <div class="col-md-4">
+        <div class="card border-secondary mb-3" style="max-width: 20rem;">
+          <div class="card-header">State Statistics</div>
+          <div class="card-body">
+            <h4 class="card-title", id='state_name'></h4>
+            <div><h6>Quarantine Begin:</h6> <h6 id='state_order'></h6></div>
+            <div><h6>Quarantine End:</h6> <h6  id='state_order_end'></h6></div>
+            <div><h6>Total Cases:</h6> <h6 id='state_cases'></h6></div>
+            <div><h6>Total Deaths:</h6> <h6 id='state_deaths'></h6></div>
+            <div><h6>Cases This Week:</h6> <h6 id="state_thisweek"></h6></div>
+            <div><h6>Cases Last Week:</h6> <h6 id="state_lastweek"></h6></div>
+          </div>
+        </div>
+      </div>
+      <!-- Radio bubble object, with selectors -->
+      <div class="col-md-4">
+        <div class="jumbotron">
+          <form id="valuetype">
+            <fieldset class="form-group">
+              <legend>Heatmap Data</legend>
+                <div class="form-check">
+                  <label class="form-check-label">
+                    <input type="radio" class="form-check-input" name="optionsRadios" id="optionsRadios1" value="per100k" checked="">
+                    Case per 100k People
+                  </label>
+                </div>
+                <div class="form-check">
+                  <label class="form-check-label">
+                    <input type="radio" class="form-check-input" name="optionsRadios" id="optionsRadios2" value="total_cases">
+                    Total Cases
+                  </label>
+                </div>
+                <div class="form-check">
+                  <label class="form-check-label">
+                    <input type="radio" class="form-check-input" name="optionsRadios" id="optionsRadios2" value="total_deaths">
+                    Total Deaths
+                  </label>
+                </div>
+                <div class="form-check">
+                  <label class="form-check-label">
+                    <input type="radio" class="form-check-input" name="optionsRadios" id="optionsRadios1" value="thisweek_cases">
+                    This Week's Cases
+                  </label>
+                </div>
+                <div class="form-check">
+                  <label class="form-check-label">
+                    <input type="radio" class="form-check-input" name="optionsRadios" id="optionsRadios2" value="thisweek_deaths">
+                    This Week's Deaths
+                  </label>
+                </div>     
+            </fieldset>
+          </form>
+        </div>
+      </div>
+    </div>
+    <!-- Bottom row, with the map -->
+    <div class="row">
+      <div class="col-md-12">
+        <div id="map"></div>
+      </div>
+    </div>
+  </div>
+</body>
+
+  <!-- Popper.js, and jQuery for bootstrap-->
+  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script>
+  <!-- Leaflet JS -->
+  <script src="https://unpkg.com/leaflet@1.3.3/dist/leaflet.js" integrity="sha512-tAGcCfR4Sc5ZP5ZoVz0quoZDYX5aCtEm/eu1KhSLj2c9eFrylXZknQYmxUssFaVJKvvc0dJQixhGjG2yXWiV9Q==" crossorigin=""></script>
+  <!-- D3 JS -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/5.5.0/d3.js"></script>
+  <!-- Leaflet Ajax -->
+  <script src="./static/js/leaflet.ajax.min.js"></script>
+  <!-- Parse JSONs improted in the flask app -->
+  <script>
+    var state_heatmap = JSON.parse('{{ state_heatmap | safe}}');
+    var usa_heatmap = JSON.parse('{{ usa_heatmap | safe}}');
+    var county_heatmap = JSON.parse('{{ county_heatmap | safe}}');
+    var API_KEY = '{{API_KEY}}';
+  </script>
+  <!-- Run our script -->
+  <script src="./static/js/logic.js"></script>
+</html>
